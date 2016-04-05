@@ -19,6 +19,10 @@ class ControllerBase
 
   # Set the response status code and header
   def redirect_to(url)
+    raise if already_built_response?
+    res.status = 302
+    res['Location'] = url
+    @already_built_response = res
   end
 
   # Populate the response with content.
