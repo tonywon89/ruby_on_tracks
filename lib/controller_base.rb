@@ -14,7 +14,7 @@ class ControllerBase
 
   # Helper method to alias @already_built_response
   def already_built_response?
-    !@already_built_response.nil?
+    @already_built_response
   end
 
   # Set the response status code and header
@@ -22,7 +22,7 @@ class ControllerBase
     raise if already_built_response?
     res.status = 302
     res['Location'] = url
-    @already_built_response = res
+    @already_built_response = true
   end
 
   # Populate the response with content.
@@ -32,7 +32,7 @@ class ControllerBase
     raise if already_built_response?
     res['Content-Type'] = content_type
     res.write(content)
-    @already_built_response = res
+    @already_built_response = true
 
   end
 
