@@ -2,21 +2,21 @@ require 'json'
 
 class Session
 
-  attr_reader :session
+  attr_reader :cookies
   # find the cookie for this app
   # deserialize the cookie into a hash
   def initialize(req)
     json_cookies = req.cookies['_rails_lite_app'] || {}.to_json
     parsed_cookies = JSON.parse(json_cookies)
-    @session = parsed_cookies
+    @cookies = parsed_cookies
   end
 
   def [](key)
-    session[key]
+    cookies[key]
   end
 
   def []=(key, val)
-    session[key] = val
+    cookies[key] = val
   end
 
   # serialize the hash into json and save in a cookie
@@ -26,7 +26,7 @@ class Session
       '_rails_lite_app',
       {
         path: '/',
-        value: session.to_json
+        value: cookies.to_json
       }
     )
   end
