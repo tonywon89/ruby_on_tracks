@@ -20,9 +20,12 @@ class ControllerBase
   # Set the response status code and header
   def redirect_to(url)
     raise if already_built_response?
+
     res.status = 302
     res['Location'] = url
     @already_built_response = true
+
+    session.store_session(res)
   end
 
   # Populate the response with content.
@@ -30,10 +33,13 @@ class ControllerBase
   # Raise an error if the developer tries to double render.
   def render_content(content, content_type)
     raise if already_built_response?
+
     res['Content-Type'] = content_type
     res.write(content)
+
     @already_built_response = true
 
+    session.store_session(res)
   end
 
   # use ERB and binding to evaluate templates
@@ -50,6 +56,7 @@ class ControllerBase
 
   # method exposing a `Session` object
   def session
+    @session ||= Session.new(req)
   end
 
   # use this with the router to call action_name (:index, :show, :create...)
