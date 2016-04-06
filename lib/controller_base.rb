@@ -3,6 +3,7 @@ require 'active_support/core_ext'
 require 'erb'
 require_relative './session'
 require_relative './flash'
+require "byebug"
 
 class ControllerBase
   attr_reader :req, :res, :params
@@ -48,9 +49,8 @@ class ControllerBase
   # pass the rendered html to render_content
   def render(template_name)
     file_path = "views/#{self.class.name.underscore}/#{template_name}.html.erb"
-    lines = File.readlines(file_path)
-
-    template = ERB.new("#{lines.join}")
+    lines = File.read(file_path)
+    template = ERB.new(lines)
     result = template.result(binding)
 
     render_content(result, 'text/html')

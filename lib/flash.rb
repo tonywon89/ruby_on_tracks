@@ -8,7 +8,7 @@ class Flash
     @res = res
     json_cookies = req.cookies['_flash_cookie']
     @cookies = json_cookies ? JSON.parse(json_cookies) : {}
-    # remove_cookies(res)
+    remove_cookies(res)
   end
 
   def [](key)

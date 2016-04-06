@@ -30,7 +30,7 @@ class Cats2Controller < ControllerBase
   end
 
   def show
-  
+    flash[:test] = "This is my flash"
     render :show
   end
 end
