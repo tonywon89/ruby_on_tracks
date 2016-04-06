@@ -29,7 +29,7 @@ class Cats2Controller < ControllerBase
     render_content($cats.to_json, "application/json")
   end
 
-  def create
+  def create_flash
     # flash[:test] = "This is my flash"
     # flash[:awesome] = "Awesome Flash"
     flash[:cool] = "Cool Flash"
@@ -37,10 +37,6 @@ class Cats2Controller < ControllerBase
   end
 
   def show
-    # flash[:test] = "This is my flash"
-    # p flash[:test]
-
-    render :show
   end
 end
 
@@ -49,7 +45,7 @@ router.draw do
   get Regexp.new("^/cats$"), Cats2Controller, :index
   get Regexp.new("^/cats/(?<cat_id>\\d+)/statuses$"), StatusesController, :index
   get Regexp.new("^/cats/(?<id>\\d+)$"), Cats2Controller, :show
-  get Regexp.new("^/cats/create$"), Cats2Controller, :create
+  get Regexp.new("^/cats/create_flash$"), Cats2Controller, :create_flash
 end
 
 app = Proc.new do |env|
