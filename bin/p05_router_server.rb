@@ -33,10 +33,12 @@ class Cats2Controller < ControllerBase
     # flash[:test] = "This is my flash"
     # flash[:awesome] = "Awesome Flash"
     flash[:cool] = "Cool Flash"
+    flash.now[:awesome] = "Awesome flash"
     redirect_to "http://localhost:3000/cats/1"
   end
 
   def show
+    flash.now[:didit] = "I did it flash"
   end
 end
 
