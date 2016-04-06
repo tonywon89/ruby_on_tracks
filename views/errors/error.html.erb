@@ -1,7 +1,14 @@
+<h3>Source Code</h3>
+
+<% i = 2 %>
+<% surrounding_lines.each do |line| %>
+
+  <pre><%= stack_line - i %><%= line %></pre>
+  <% i -= 1 %>
+<% end %>
+
 <h3>Error Message </h3>
 <p><%= e.message %></p>
 
 <h3>Stack Trace: </h3>
-<% e.backtrace.each do |stack| %>
-  <p><%= stack %></p>
-<% end %>
+<pre><%= e.backtrace.join("\n") %></pre>
