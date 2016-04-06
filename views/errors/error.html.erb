@@ -1,0 +1,7 @@
+<h3>Error Message </h3>
+<p><%= e.message %></p>
+
+<h3>Stack Trace: </h3>
+<% e.backtrace.each do |stack| %>
+  <p><%= stack %></p>
+<% end %>
