@@ -28,12 +28,18 @@ class Cats2Controller < ControllerBase
   def index
     render_content($cats.to_json, "application/json")
   end
+
+  def show
+  
+    render :show
+  end
 end
 
 router = Router.new
 router.draw do
   get Regexp.new("^/cats$"), Cats2Controller, :index
   get Regexp.new("^/cats/(?<cat_id>\\d+)/statuses$"), StatusesController, :index
+  get Regexp.new("^/cats/(?<id>\\d+)$"), Cats2Controller, :show
 end
 
 app = Proc.new do |env|
