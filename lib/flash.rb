@@ -8,7 +8,7 @@ class Flash
     @res = res
     json_cookies = req.cookies['_flash_cookie']
     @cookies = json_cookies ? JSON.parse(json_cookies) : {}
-    remove_cookies(res)
+    remove_flash
   end
 
   def [](key)
@@ -17,17 +17,26 @@ class Flash
 
   def []=(key, value)
     cookies[key] = value
-    store_flash(res)
+    store_flash
   end
 
-  def remove_cookies(res)
-    res.delete_cookie('_flash_cookies')
-  end
-
-  def store_flash(res)
+  def remove_flash
     res.set_cookie(
       '_flash_cookie',
-      path: '/', value: cookies.to_json
+      {
+        path: '/',
+        value: {}
+      }
+    )
+  end
+
+  def store_flash
+    res.set_cookie(
+      '_flash_cookie',
+      {
+        path: '/',
+        value: cookies.to_json
+      }
     )
   end
 end
