@@ -10,7 +10,6 @@ class MyController < ControllerBase
 end
 
 error_app = Proc.new do |env|
-  puts "calling error app"
   req = Rack::Request.new(env)
   res = Rack::Response.new
 

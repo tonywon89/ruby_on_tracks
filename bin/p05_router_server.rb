@@ -25,13 +25,12 @@ class StatusesController < ControllerBase
 end
 
 class Cats2Controller < ControllerBase
+
   def index
     render_content($cats.to_json, "application/json")
   end
 
   def create_flash
-    # flash[:test] = "This is my flash"
-    # flash[:awesome] = "Awesome Flash"
     flash[:cool] = "Cool Flash"
     flash.now[:awesome] = "Awesome flash"
     redirect_to "http://localhost:3000/cats/1"
@@ -52,7 +51,6 @@ end
 
 app = Proc.new do |env|
   req = Rack::Request.new(env)
-  p req["name"]
   res = Rack::Response.new
   router.run(req, res)
   res.finish

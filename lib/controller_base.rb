@@ -77,6 +77,7 @@ class ControllerBase
     token = SecureRandom.urlsafe_base64(16)
     session[:csrf] = token
     session.store_session(res)
+    token
   end
 
   def self.protect_from_forgery
