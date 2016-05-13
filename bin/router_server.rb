@@ -2,7 +2,6 @@ require 'rack'
 require_relative '../lib/controller_base'
 require_relative '../lib/router'
 
-
 $cats = [
   { id: 1, name: "Curie" },
   { id: 2, name: "Markov" }
@@ -31,13 +30,13 @@ class CatsController < ControllerBase
   end
 
   def create_flash
-    flash[:cool] = "Cool Flash"
-    flash.now[:awesome] = "Awesome flash"
+    flash[:stay_one_cycle] = "This Flash lasts for one cycle."
+    flash.now[:will_not_show] = "Will not show this flash because it expires."
     redirect_to "http://localhost:3000/cats/1"
   end
 
   def show
-    flash.now[:didit] = "I did it flash"
+    flash.now[:temp_flash] = "This flash will only show on the show page."
   end
 end
 

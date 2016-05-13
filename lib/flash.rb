@@ -1,31 +1,22 @@
-
 class Flash
 
-  attr_reader :cookies, :req, :res, :now_instance, :temp_cookies
+  attr_reader :cookies, :req, :res
 
-  def initialize(req, res, now_instance = false)
-    @req, @res, @now_instance = req, res, now_instance
+  def initialize(req, res)
+    @req, @res = req, res
 
-    if @now_instance
-      @temp_cookies = {}
-    else
-      json_cookies = req.cookies['_flash_cookie']
-      @cookies = json_cookies ? JSON.parse(json_cookies) : {}
-      reset_flash
-    end
+    json_cookies = req.cookies['_flash_cookie']
+    @cookies = json_cookies ? JSON.parse(json_cookies) : {}
+    reset_flash
   end
 
   def [](key)
-    cookies.merge(now.temp_cookies)[key.to_s]
+    cookies.merge(now)[key.to_sym] || cookies.merge(now)[key.to_s]
   end
 
   def []=(key, value)
-    if now_instance
-      temp_cookies[key.to_s] = value
-    else
-      cookies[key.to_s] = value
-      store_flash(cookies.to_json)
-    end
+    cookies[key.to_sym] = value
+    store_flash(cookies.to_json)
   end
 
   def reset_flash
@@ -33,7 +24,7 @@ class Flash
   end
 
   def now
-    @now ||= Flash.new(req, res, true)
+    @now ||= {}
   end
 
   def store_flash(value)
