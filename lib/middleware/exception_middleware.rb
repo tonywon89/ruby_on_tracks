@@ -1,5 +1,3 @@
-require "byebug"
-
 class ExceptionMiddleware
   attr_reader :app
 

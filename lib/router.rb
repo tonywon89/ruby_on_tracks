@@ -14,7 +14,7 @@ class Route
       req.request_method.downcase.to_sym == http_method
   end
 
-  # use pattern to pull out route params (save for later?)
+  # use pattern to pull out route params
   # instantiate controller and call controller action
   def run(req, res)
     match_data = pattern.match(req.path)

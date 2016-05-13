@@ -1,5 +1,4 @@
 class StaticAssetsMiddleware
-
   attr_reader :app
 
   MIME_TYPES = ["jpg", "jpeg", "gif", "js"]
@@ -18,7 +17,6 @@ class StaticAssetsMiddleware
 
     if MIME_TYPES.include?(mime_type)
       file_path ="public#{req.path}"
-
       file = File.read(file_path)
 
       res['Content-type'] = mime_type
