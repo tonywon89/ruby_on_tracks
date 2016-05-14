@@ -34,14 +34,12 @@ class Router
     @routes = []
   end
 
-  # simply adds a new route to the list of routes
+  # adds a new route to the list of routes
   def add_route(pattern, method, controller_class, action_name)
     routes << Route.new(pattern, method, controller_class, action_name)
-
   end
 
-  # evaluate the proc in the context of the instance
-  # for syntactic sugar :)
+  # evaluate the proc in the context of the instance, used for syntacticc sugar
   def draw(&proc)
     instance_eval(&proc)
   end
