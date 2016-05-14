@@ -72,18 +72,4 @@ class ControllerBase
     send(name)
     render(name) unless already_built_response?
   end
-
-  def form_authenticity_token
-    token = SecureRandom.urlsafe_base64(16)
-    session[:csrf] = token
-    session.store_session(res)
-    token
-  end
-
-  def self.protect_from_forgery
-    unless req.get?
-      form_auth_token = req.params["authenticity_token"]
-      raise unless session[:csrf] == form_auth_token
-    end
-  end
 end
