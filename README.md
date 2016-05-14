@@ -109,6 +109,7 @@ end
 ```
 
 ## Session
+The session has `@cookies`, which is information provided by the request cookies. If there is no cookie by the name `session_cookie`, an empty hash is assigned to `@cookies`. There are the `[]` and `[]=` methods, which provide access to the `@cookies`. The `store_session` method saves the information in `@cookies` into `Rack::Request`.
 
 ## Flash
 
