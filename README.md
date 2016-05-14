@@ -109,9 +109,46 @@ end
 ```
 
 ## Session
-The session has `@cookies`, which is information provided by the request cookies. If there is no cookie by the name `session_cookie`, an empty hash is assigned to `@cookies`. There are the `[]` and `[]=` methods, which provide access to the `@cookies`. The `store_session` method saves the information in `@cookies` into `Rack::Request`.
+`Session` has `@cookies`, which is information provided by the request cookies. If there is no cookie by the name `session_cookie`, an empty hash is assigned to `@cookies`. There are the `[]` and `[]=` methods, which provide access to the `@cookies`. The `store_session` method saves the information in `@cookies` into `Rack::Request`.
 
 ## Flash
+`Flash` is similar to the `Session` in the sense that they both set the cookies to the `Rack::Response`, and also pulls information from `Rack::Request`. The difference is that the flash cookies only last the current and next cycle, so it has to be reset after it loads the data. This is done through `reset_flash`, which stores an empty hash as the cookies.
+
+```ruby
+def reset_flash
+  store_flash({})
+end
+
+def store_flash(value)
+  res.set_cookie(
+    '_flash_cookie',
+    {
+      path: '/',
+      value: value
+    }
+  )
+end
+```
+
+When a flash value is stored, it saves it into the cookies.
+```ruby
+def []=(key, value)
+  cookies[key.to_sym] = value
+  store_flash(cookies.to_json)
+```
+end
+
+### `flash.now`
+  While flash persists for the current and next cycle, `flash.now` only lasts a the current cycle. This is accomplished by storing the information in `@now`, which isn't saved into the `Rack::Response` cookie.
+
+### Accessing `flash` values
+  To access both the flash and the flash.now values, the two hashes are temporarily merged together into a single hash
+
+```ruby
+def [](key)
+  cookies.merge(now)[key.to_sym] || cookies.merge(now)[key.to_s]
+end
+```
 
 ## Exceptions
 
