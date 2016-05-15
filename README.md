@@ -14,6 +14,9 @@ Rack::Server.start(
   Port: 3000
 )
 ```
+## Starting the Servers
+To run the app, clone the repo and `cd` into the directory. There are four servers available to demonstrate the different features of this application. To start a server, run `ruby bin/[name of file]`.
+
 ## ControllerBase
   Initialization of ControllerBase takes in a `Rack::Request` and a `Rack::Response` as arguments, as well as any route params. There are several methods that were implemented in this class.
 
