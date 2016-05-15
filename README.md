@@ -15,7 +15,7 @@ Rack::Server.start(
 )
 ```
 ## Starting the Servers
-To run the app, clone the repo and `cd` into the directory. There are four servers available to demonstrate the different features of this application. To start a server, run `ruby bin/[name of file]`.
+To run the app, clone the repo and `cd` into the directory. There are four servers available to demonstrate the different features of this application. To start a server, choose a file in the `bin` folder that you would like to see, and run `ruby bin/[name of file]`. Then open a browser and go to http://localhost:3000. Look in the server file to see what actions and paths there are.
 
 ## ControllerBase
   Initialization of ControllerBase takes in a `Rack::Request` and a `Rack::Response` as arguments, as well as any route params. There are several methods that were implemented in this class.
@@ -155,4 +155,8 @@ end
 
 ## Exceptions
 
+Whenever there is an exception that was raised, such as a missing template, the `ExceptionMiddleware` will rescue it and render the error template, which will display the surrounding lines, the error message, and the stack trace leading up to the error.
+
 ## Assets
+
+The `StaticAssetsMiddleware` will look at the current path of the request. If the end matches a MIME type and it exists in the `public` directory, the asset file will be written into the `Rack::Response`, thus displaying the image. 

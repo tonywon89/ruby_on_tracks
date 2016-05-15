@@ -15,9 +15,12 @@ class ExceptionMiddleware
     rescue => e
       puts e.message
 
+      # Returns the file paths for all the stack calls
       top_stack_call = e.backtrace.first.scan(/[^:]+/)
 
       stack_path = top_stack_call.first
+      
+      # gets the line number where the error occured
       stack_line = top_stack_call[1].to_i
 
       stack_file = File.readlines(stack_path)
