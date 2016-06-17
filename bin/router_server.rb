@@ -1,6 +1,7 @@
 require 'rack'
 require_relative '../lib/controller_base'
 require_relative '../lib/router'
+require_relative '../lib/middleware/exception_middleware'
 
 $cats = [
   { id: 1, name: "Curie" },
@@ -26,7 +27,7 @@ end
 class CatsController < ControllerBase
 
   def index
-    render_content($cats.to_json, "application/json")
+    # render_content($cats.to_json, "application/json")
   end
 
   def create_flash
@@ -55,7 +56,12 @@ app = Proc.new do |env|
   res.finish
 end
 
+middleware_app = Rack::Builder.new do
+  use ExceptionMiddleware
+  run app
+end.to_app
+
 Rack::Server.start(
- app: app,
+ app: middleware_app,
  Port: 3000
 )
