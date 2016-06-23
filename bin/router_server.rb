@@ -27,7 +27,7 @@ end
 class CatsController < ControllerBase
 
   def index
-    # render_content($cats.to_json, "application/json")
+    render_content($cats.to_json, "application/json")
   end
 
   def create_flash
